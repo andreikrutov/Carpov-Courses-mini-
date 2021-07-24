@@ -7,3 +7,5 @@
 Используемые библиотеки:  
 - Pandas  
 - Numpy
+- Matplotlib
+- Seaborn
