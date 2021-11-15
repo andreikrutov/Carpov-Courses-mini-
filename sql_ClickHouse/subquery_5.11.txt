@@ -1,0 +1,23 @@
+/* 
+Используйте предыдущий запрос как подзапрос и посчитайте, сколько 
+клиентов приходится на каждый сегмент и сколько доходов он приносит. 
+Отсортируйте результат по убыванию суммы доходов на сегмент и в качестве 
+ответа укажите наибольшую сумму.
+*/
+
+select cat, uniqExact(UserID) as users, sum(income) as cat_income from(
+
+select UserID, sum(Rub) as income,
+    case
+        when avg(Rub)>=0 and avg(Rub)<5 then 'A'
+        when avg(Rub)>=5 and avg(Rub)<10 then 'B'
+        when avg(Rub)>=10 and avg(Rub)<20 then 'C'
+        else 'D'
+    end as cat
+from checks
+group by UserID
+order by UserID 
+--limit 10
+)
+group by cat
+order by cat_income desc
